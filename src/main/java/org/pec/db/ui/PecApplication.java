@@ -3,6 +3,9 @@ package org.pec.db.ui;
 
 import org.pec.db.entities.Person;
 
+import com.google.inject.Inject;
+import com.google.inject.Provider;
+import com.google.inject.servlet.SessionScoped;
 import com.vaadin.Application;
 import com.vaadin.data.util.BeanItem;
 import com.vaadin.terminal.ThemeResource;
@@ -17,6 +20,7 @@ import com.vaadin.ui.Window;
 import com.vaadin.ui.Button.ClickEvent;
 import com.vaadin.ui.Button.ClickListener;
 
+@SessionScoped
 public class PecApplication extends Application{
 
 	private static final long serialVersionUID = 1L;
@@ -25,16 +29,15 @@ public class PecApplication extends Application{
 	private Button search    = new Button("Buscar");
 	private Button share     = new Button("Enviar");
 	private Button help      = new Button("Ayuda");
-	private NavigationTree tree;
-	private volatile ListView listView = null;
-	private volatile SearchView searchView = null;
-	private volatile HelpWindow helpWindow = null;
-	private PersonList personList = null;
-	private PersonForm personForm = null;
+	private final NavigationTree tree;
+	@Inject private Provider<ListView> listViewProvider;
+	@Inject private Provider<HelpWindow> helpWindowProvider;
+	@Inject private Provider<PersonForm> personFormProvider;
 	private SplitPanel horizontalSplit = new SplitPanel(SplitPanel.ORIENTATION_HORIZONTAL);
-	private PersonContainer dataSource = PersonContainer.createWithTestData();
 	
-	public PecApplication() {
+	@Inject
+	public PecApplication(NavigationTree tree) {
+		this.tree = tree;
 		setTheme("contacts");
 		customizeButtons();
 		window = new Window("PEC Database");
@@ -47,7 +50,6 @@ public class PecApplication extends Application{
 		layout.setExpandRatio(horizontalSplit, 1);
 		// reserve space for main menu
 		horizontalSplit.setSplitPosition(200, SplitPanel.UNITS_PIXELS);
-		tree = new NavigationTree(this);
 		horizontalSplit.setFirstComponent(tree);
 		window.setContent(layout);
 	}
@@ -60,7 +62,7 @@ public class PecApplication extends Application{
 			@Override
 			public void buttonClick(ClickEvent event) {
 				BeanItem person = new BeanItem(new Person());
-				personForm.setItemDataSource(person);
+				personFormProvider.get().setItemDataSource(person);
 			}
 		});
 		search.setIcon(new ThemeResource("icons/32/folder-add.png"));
@@ -68,7 +70,7 @@ public class PecApplication extends Application{
 		help.addListener(new ClickListener() {
 			@Override
 			public void buttonClick(ClickEvent event) {
-				getMainWindow().addWindow(getHelpWindow());
+				getMainWindow().addWindow(helpWindowProvider.get());
 			}
 		});
 		share.setIcon(new ThemeResource("icons/32/users.png"));
@@ -91,57 +93,11 @@ public class PecApplication extends Application{
 	@Override
 	public void init() {
 		setMainWindow(window);
-		setMainComponent(getListView());
+		setMainComponent(listViewProvider.get());
 	}
 	
 	public void setMainComponent(Component component){
 		horizontalSplit.setSecondComponent(component);
 	}
-
-	public PersonContainer getDataSource() {
-		return dataSource;
-	}
-	// Correct lazy load of listview
-	public ListView getListView() {
-		ListView local = listView;
-		if (local == null){
-			synchronized (this) {
-				local = listView;
-				if (local == null){
-					personForm = new PersonForm();
-					personList = new PersonList(getDataSource(),personForm);
-					listView = local = new ListView(personList,personForm);
-				}
-			}
-		}
-		return local;
-	}
 	
-	// Correct lazy load of searchView
-	public SearchView getSearchView() {
-		SearchView local = searchView;
-		if (local == null){
-			synchronized (this) {
-				local = searchView;
-				if (local == null){
-					searchView = local = new SearchView(this);
-				}
-			}
-		}
-		return local;
-	}
-	
-	public Window getHelpWindow() {
-		HelpWindow local = helpWindow;
-		if (local == null){
-			synchronized (this) {
-				local = helpWindow;
-				if (local == null){
-					helpWindow = local = new HelpWindow();
-				}
-			}
-		}
-		return local;
-	}
-		
 }

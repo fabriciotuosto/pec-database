@@ -1,5 +1,6 @@
 package org.pec.db.ui;
 
+import com.google.inject.Inject;
 import com.vaadin.ui.Button;
 import com.vaadin.ui.CheckBox;
 import com.vaadin.ui.FormLayout;
@@ -17,6 +18,7 @@ public class SearchView extends Panel{
 	private TextField searchName;
 	private PecApplication app;
 	
+	@Inject
 	public SearchView(final PecApplication app) {
 		this.app = app;
 		addStyleName("view");

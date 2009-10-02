@@ -5,8 +5,10 @@ import java.util.Random;
 import org.pec.db.entities.Person;
 import org.pec.db.entities.Status;
 
+import com.google.inject.servlet.SessionScoped;
 import com.vaadin.data.util.BeanItemContainer;
 
+@SessionScoped
 public class PersonContainer extends BeanItemContainer<Person> {
 
 	private static final long serialVersionUID = 1L;

@@ -2,6 +2,8 @@ package org.pec.db.ui;
 
 import java.util.concurrent.Callable;
 
+import com.google.inject.Inject;
+import com.google.inject.Provider;
 import com.vaadin.event.ItemClickEvent;
 import com.vaadin.event.ItemClickEvent.ItemClickListener;
 import com.vaadin.ui.Tree;
@@ -10,21 +12,30 @@ public class NavigationTree extends Tree {
 
 	private static final long serialVersionUID = 1L;
 	
-	public final TreeItem showAll;
-	public final TreeItem search;
+	private final TreeItem showAll;
+	private final TreeItem search;
+	private final Provider<PecApplication> appProvider;
+	private final Provider<ListView> listViewProvider;
+	private final Provider<SearchView> searchViewProvider;
 	
-	public NavigationTree(final PecApplication app) {
+	@Inject
+	public NavigationTree(final Provider<SearchView> searchViewProvider,
+						  final Provider<ListView> listViewProvider,
+						  final Provider<PecApplication> appProvider) {
+		this.appProvider = appProvider;
+		this.searchViewProvider = searchViewProvider;
+		this.listViewProvider = listViewProvider;
 		showAll = new TreeItem("Mostrar todo",new Callable<Object>() {
 			@Override
 			public Object call() throws Exception {
-				app.setMainComponent(app.getListView());
+				appProvider.get().setMainComponent(listViewProvider.get());
 				return null;
 			}
 		});
 		search = new TreeItem("Buscar",new Callable<Object>() {
 			@Override
 			public Object call() throws Exception {
-				app.setMainComponent(app.getSearchView());
+				appProvider.get().setMainComponent(searchViewProvider.get());
 				return null;
 			}
 		});

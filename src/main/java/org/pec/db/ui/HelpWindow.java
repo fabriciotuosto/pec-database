@@ -1,8 +1,10 @@
 package org.pec.db.ui;
 
+import com.google.inject.Singleton;
 import com.vaadin.ui.Label;
 import com.vaadin.ui.Window;
 
+@Singleton
 public class HelpWindow extends Window {
 	
 	private static final long serialVersionUID = 1L;

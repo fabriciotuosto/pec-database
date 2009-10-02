@@ -3,6 +3,7 @@ package org.pec.db.ui;
 import java.util.Arrays;
 import java.util.List;
 
+import com.google.inject.servlet.SessionScoped;
 import com.vaadin.data.Item;
 import com.vaadin.ui.Button;
 import com.vaadin.ui.ComboBox;
@@ -11,6 +12,7 @@ import com.vaadin.ui.HorizontalLayout;
 import com.vaadin.ui.Button.ClickEvent;
 import com.vaadin.ui.Button.ClickListener;
 
+@SessionScoped
 public class PersonForm extends Form {
 
 	private static final long serialVersionUID = 1L;
