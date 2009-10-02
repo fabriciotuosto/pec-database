@@ -1,0 +1,107 @@
+<project xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://maven.apache.org/POM/4.0.0">
+    <modelVersion>4.0.0</modelVersion>
+    <groupId>org.pec.db</groupId>
+    <artifactId>plan-database</artifactId>
+    <version>1.0-SNAPSHOT</version>
+    <packaging>war</packaging>
+    <name>PEC Database Application</name>
+    <dependencies>
+		<!-- Database for application -->
+	    <!-- Web Container dependencies -->
+		<dependency>
+		    <groupId>javax.servlet</groupId>
+		    <artifactId>servlet-api</artifactId>
+		    <version>${servlet-api.version}</version>
+		    <scope>provided</scope>
+		</dependency>
+	    <dependency>
+	      <groupId>com.vaadin</groupId>
+	      <artifactId>vaadin</artifactId>
+	      <version>${vaadin.version}</version>
+	    </dependency>		
+        <!-- Utility and commons -->
+        <dependency>
+            <groupId>commons-lang</groupId>
+            <artifactId>commons-lang</artifactId>
+            <version>${commons-lang.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>commons-beanutils</groupId>
+            <artifactId>commons-beanutils</artifactId>
+            <version>${commons-beanutils.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>com.google.collections</groupId>
+            <artifactId>google-collections</artifactId>
+            <version>${google-collections.version}</version>
+        </dependency>
+        <!-- Guice -->
+        <dependency>
+            <groupId>com.google.code.guice</groupId>
+            <artifactId>guice</artifactId>
+            <version>${guice.version}</version>
+        </dependency>
+		<dependency>
+            <groupId>com.google.code.guice</groupId>
+            <artifactId>guice-servlet</artifactId>
+            <version>${guice.version}</version>
+        </dependency>        
+        <dependency>
+            <groupId>aopalliance</groupId>
+            <artifactId>aopalliance</artifactId>
+            <version>${aopalliance.version}</version>
+	    </dependency>
+        <!-- Log -->
+        <dependency>
+            <groupId>org.slf4j</groupId>
+            <artifactId>slf4j-api</artifactId>
+            <version>${slf4j.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.slf4j</groupId>
+            <artifactId>slf4j-log4j12</artifactId>
+            <version>${slf4j.version}</version>
+            <scope>runtime</scope>
+        </dependency>
+        <!-- Test -->
+        <dependency>
+            <groupId>junit</groupId>
+            <artifactId>junit</artifactId>
+            <version>${junit.version}</version>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.mockito</groupId>
+            <artifactId>mockito-all</artifactId>
+            <version>${mockito.version}</version>
+            <scope>test</scope>
+		</dependency>
+    </dependencies>
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <configuration>
+                    <source>1.6</source>
+                    <target>1.6</target>
+		  			<optimize>true</optimize>
+				</configuration>
+            </plugin>
+        </plugins>
+    </build>
+    <properties>
+        <!-- application frameworks versions -->
+        <junit.version>4.6</junit.version>
+        <mockito.version>1.7</mockito.version>
+        <slf4j.version>1.5.6</slf4j.version>
+        <servlet-api.version>2.5</servlet-api.version>
+        <commons-lang.version>2.4</commons-lang.version>
+        <commons-beanutils.version>1.8.0</commons-beanutils.version>
+        <google-collections.version>1.0-rc2</google-collections.version>
+        <guice.version>2.0.1</guice.version>
+		<aopalliance.version>1.0</aopalliance.version>
+		<vaadin.version>6.0.1</vaadin.version>
+		<db4o.version>7.2.54.11278</db4o.version>
+    </properties>
+</project>
