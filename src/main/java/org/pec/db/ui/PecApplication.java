@@ -5,6 +5,7 @@ import com.google.inject.Inject;
 import com.google.inject.servlet.SessionScoped;
 import com.vaadin.Application;
 import com.vaadin.ui.Component;
+import com.vaadin.ui.ProgressIndicator;
 import com.vaadin.ui.SplitPanel;
 import com.vaadin.ui.VerticalLayout;
 import com.vaadin.ui.Window;
@@ -33,6 +34,11 @@ public class PecApplication extends Application{
 		layout.setExpandRatio(horizontalSplit, 1);
 		// reserve space for main menu
 		setTheme("contacts");
+		// Enable polling to display updated content
+		ProgressIndicator poller = new ProgressIndicator();
+		poller.addStyleName("invisible");
+		poller.setPollingInterval(100);
+		window.addComponent(poller);
 	}
 
 	
