@@ -1,6 +1,7 @@
 package org.pec.db.ui;
 
 import com.google.inject.Inject;
+import com.google.inject.servlet.SessionScoped;
 import com.vaadin.ui.Button;
 import com.vaadin.ui.CheckBox;
 import com.vaadin.ui.FormLayout;
@@ -8,6 +9,7 @@ import com.vaadin.ui.NativeSelect;
 import com.vaadin.ui.Panel;
 import com.vaadin.ui.TextField;
 
+@SessionScoped
 public class SearchView extends Panel{
 
 	private static final long serialVersionUID = 1L;

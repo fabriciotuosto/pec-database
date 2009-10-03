@@ -5,6 +5,7 @@ import java.util.Random;
 import org.pec.db.entities.Person;
 import org.pec.db.entities.Status;
 
+import com.google.inject.Inject;
 import com.google.inject.servlet.SessionScoped;
 import com.vaadin.data.util.BeanItemContainer;
 
@@ -13,11 +14,13 @@ public class PersonContainer extends BeanItemContainer<Person> {
 
 	private static final long serialVersionUID = 1L;
 
+//	public PersonContainer() {
+//		super(Person.class);
+//	}
+
+	@Inject @Deprecated
 	public PersonContainer() {
 		super(Person.class);
-	}
-
-	public static PersonContainer createWithTestData() {
 		final String[] fnames = { "Peter", "Alice", "Joshua", "Mike", "Olivia",
 				"Nina", "Alex", "Rita", "Dan", "Umberto", "Henrik", "Rene",
 				"Lisa", "Marge" };
@@ -26,10 +29,9 @@ public class PersonContainer extends BeanItemContainer<Person> {
 				"Rowling", "Barks", "Ross", "Schneider", "Tate" };
 		final String dnis[] = { "29000000", "11222333", "23000444"};
 		final Status[] status = Status.values();
-		PersonContainer c = new PersonContainer();
 
 		Random r = new Random(0);
-		for (int i = 0; i < 100; i++) {
+		for (int i = 0; i < 10; i++) {
 			Person p = new Person();
 			p.setFirstName(fnames[r.nextInt(fnames.length)]);
 			p.setLastName(lnames[r.nextInt(lnames.length)]);
@@ -37,9 +39,8 @@ public class PersonContainer extends BeanItemContainer<Person> {
 			p.setDni(dni);
 			p.setCuil("20-"+dni+"-0");
 			p.setStatus(status[r.nextInt(status.length)]);
-			c.addItem(p);
+			addItem(p);
 		}
-		return c;
 	}
 
 }

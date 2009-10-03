@@ -13,17 +13,8 @@ public class HelpWindow extends Window {
 
 	public HelpWindow() {
 		setCaption("Ayuda PEC base de datos");
-		/*
-		* Make the window modal, which will disable all other components while
-		* it is visible
-		*/
 		setModal(true);
-		/* Make the sub window 50% the size of the browser window */
 		setWidth("50%");
-		/*
-		* Center the window both horizontally and vertically in the browser
-		* window
-		*/
 		center();
 		addComponent(new Label(HELP_HTML_SNIPPET, Label.CONTENT_XHTML));
 	}

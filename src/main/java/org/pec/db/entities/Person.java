@@ -1,11 +1,14 @@
 package org.pec.db.entities;
 
+import java.util.Date;
+
 public class Person {
 
 	private String dni;
 	private String firstName;
 	private String lastName;
 	private String cuil;
+	private Date birthDate;
 	private Neighborhood neighborhood;
 	private Status status;
 	
@@ -48,5 +51,13 @@ public class Person {
 	}
 	public void setStatus(Status status) {
 		this.status = status;
+	}
+
+	public Date getBirthDate() {
+		return birthDate;
+	}
+
+	public void setBirthDate(Date birthDate) {
+		this.birthDate = birthDate;
 	}
 }

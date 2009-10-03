@@ -16,24 +16,18 @@ public class NavigationTree extends Tree {
 	private final TreeItem showAll;
 	private final TreeItem search;
 	
-	@Inject
+	@Inject @SuppressWarnings("serial")
 	public NavigationTree(ShowAllCommand showAllCmd,
 						  ShowSearchCommand showSearch) {
 		showAll = new TreeItem("Mostrar todo",showAllCmd);
 		search = new TreeItem("Buscar",showSearch);
 		addItem(showAll);
-		this.setChildrenAllowed(showAll, false);
+		setChildrenAllowed(showAll, false);
 		
-		addItem(search);		
-		/*
-		* We want items to be selectable but do not want the user to be able to
-		* de-select an item.
-		*/
+		addItem(search);
 		setSelectable(true);
 		// Make application handle item click events
 		addListener(new ItemClickListener() {
-			private static final long serialVersionUID = 1L;
-
 			@Override
 			public void itemClick(ItemClickEvent event) {
 				TreeItem item = (TreeItem) event.getItemId();

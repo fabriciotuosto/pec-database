@@ -3,10 +3,14 @@ package org.pec.db.ui;
 import java.util.Arrays;
 import java.util.List;
 
+import org.pec.db.entities.Person;
+import org.pec.db.ui.fields.PersonFieldFactory;
+
+import com.google.inject.Inject;
 import com.google.inject.servlet.SessionScoped;
 import com.vaadin.data.Item;
+import com.vaadin.data.util.BeanItem;
 import com.vaadin.ui.Button;
-import com.vaadin.ui.ComboBox;
 import com.vaadin.ui.Form;
 import com.vaadin.ui.HorizontalLayout;
 import com.vaadin.ui.Button.ClickEvent;
@@ -16,18 +20,18 @@ import com.vaadin.ui.Button.ClickListener;
 public class PersonForm extends Form {
 
 	private static final long serialVersionUID = 1L;
-	private final ComboBox cities = new ComboBox("Neighborhood");
+	private boolean isNewPerson = false;
+	private Person newPerson;
 	private HorizontalLayout footer;
 	private Button save = new Button("Guardar");
 	private Button cancel = new Button("Cancelar");
 	private Button edit = new Button("Editar");
-
-	public PersonForm() {
-
-		/* Allow the user to enter new cities */
-		cities.setNewItemsAllowed(true);
-		/* We do not want to use null values */
-		cities.setNullSelectionAllowed(false);
+	private final PersonContainer container;
+	
+	@Inject
+	public PersonForm(PersonContainer container) {
+		this.container = container;
+		setFormFieldFactory(new PersonFieldFactory());
 		setWriteThrough(false);
 		footer = new HorizontalLayout();
 		footer.setSpacing(true);
@@ -48,10 +52,11 @@ public class PersonForm extends Form {
 	}
 
 	public void setItemDataSource(Item newDataSource) {
+		isNewPerson = false;
 		if (newDataSource != null) {
 			List<String> orderedProperties = Arrays
 					.asList(PersonList.NATURAL_COL_ORDER);
-			super.setItemDataSource(newDataSource, orderedProperties);
+			setItemDataSource(newDataSource, orderedProperties);
 			setReadOnly(true);
 			getFooter().setVisible(true);
 		} else {
@@ -60,12 +65,24 @@ public class PersonForm extends Form {
 		}
 	}
 
+	public void addPerson(){
+		newPerson = new Person();
+		BeanItem person = new BeanItem(newPerson);
+		setItemDataSource(person);
+		isNewPerson = true;
+		setReadOnly(false);
+	}
+	
 	@SuppressWarnings("serial")
 	private void customizeButtons(final PersonForm form) {
 		save.addListener(new ClickListener() {
 			@Override
 			public void buttonClick(ClickEvent event) {
 				form.commit();
+				if(isNewPerson){
+					Item item = container.addItem(newPerson);
+					setItemDataSource(item);
+				}
 				form.setReadOnly(true);
 			}
 		});
@@ -79,8 +96,10 @@ public class PersonForm extends Form {
 		cancel.addListener(new ClickListener() {
 			@Override
 			public void buttonClick(ClickEvent event) {
+				isNewPerson = false;
 				form.discard();
 				form.setReadOnly(true);
+				form.setItemDataSource(null);
 			}
 		});
 	}

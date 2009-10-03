@@ -6,7 +6,7 @@ import org.pec.db.ui.actions.ShowSearchCommand;
 
 import com.google.inject.Inject;
 import com.google.inject.Provider;
-import com.google.inject.Singleton;
+import com.google.inject.servlet.SessionScoped;
 import com.vaadin.terminal.ThemeResource;
 import com.vaadin.ui.Alignment;
 import com.vaadin.ui.Button;
@@ -14,21 +14,29 @@ import com.vaadin.ui.HorizontalLayout;
 import com.vaadin.ui.Button.ClickEvent;
 import com.vaadin.ui.Button.ClickListener;
 
-@Singleton
+@SessionScoped
 public class ToolBar extends HorizontalLayout{
 
 	private static final long serialVersionUID = 1L;
 	private Button newPerson = new Button("Agregar Persona");
+	private Button deletePerson = new Button("Eliminar Persona");
 	private Button search    = new Button("Buscar");
 	private Button share     = new Button("Enviar");
 	private Button help      = new Button("Ayuda");
-	@Inject private Provider<AddPersonCommand> addPersonCmdProvider;
-	@Inject private Provider<ShowHelpWindowCommand> helpWindowProvider;
-	@Inject private Provider<ShowSearchCommand> showSearchCommand;
+	private final Provider<AddPersonCommand> addPersonCmdProvider;
+	private final Provider<ShowHelpWindowCommand> helpWindowProvider;
+	private final Provider<ShowSearchCommand> showSearchCommand;
 	
 	@Inject
-	public ToolBar() {
+	public ToolBar(Provider<AddPersonCommand> addCmd,
+			       Provider<ShowHelpWindowCommand> showHelpCmd,
+			       Provider<ShowSearchCommand> showSearchCmd) {
+		this.addPersonCmdProvider = addCmd;
+		this.helpWindowProvider = showHelpCmd;
+		this.showSearchCommand = showSearchCmd;
+		
 		addComponent(newPerson);
+		addComponent(deletePerson);
 		addComponent(search);
 		addComponent(share);
 		addComponent(help);
@@ -42,9 +50,10 @@ public class ToolBar extends HorizontalLayout{
 	@SuppressWarnings("serial")
 	private void customizeButtons() {
 		newPerson.setIcon(new ThemeResource("icons/32/document-add.png"));
+		deletePerson.setIcon(new ThemeResource("icons/32/document-delete.png"));
 		search.setIcon(new ThemeResource("icons/32/folder-add.png"));
 		help.setIcon(new ThemeResource("icons/32/help.png"));
-		share.setIcon(new ThemeResource("icons/32/users.png"));
+		share.setIcon(new ThemeResource("icons/32/email.png"));
 		
 		newPerson.addListener(new ClickListener(){
 			@Override

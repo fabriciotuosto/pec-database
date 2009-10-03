@@ -10,17 +10,8 @@ public class SendEmailWindow extends Window {
 	private static final long serialVersionUID = 1L;
 
 	public SendEmailWindow() {
-		/*
-		* Make the window modal, which will disable all other components while
-		* it is visible
-		*/
 		setModal(true);
-		/* Make the sub window 50% the size of the browser window */
 		setWidth("50%");
-		/*
-		* Center the window both horizontally and vertically in the browser
-		* window
-		*/
 		center();
 		setCaption("Sharing options");
 		addComponent(new Label(
@@ -30,5 +21,5 @@ public class SendEmailWindow extends Window {
 		addComponent(new CheckBox(".Mac"));
 		Button close = new Button("OK");
 		addComponent(close);
-		}
+	}
 }
