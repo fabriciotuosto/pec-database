@@ -4,6 +4,7 @@ import java.util.Arrays;
 import java.util.List;
 
 import org.pec.db.entities.Person;
+import org.pec.db.ui.actions.ShowNotification;
 import org.pec.db.ui.fields.PersonFieldFactory;
 
 import com.google.inject.Inject;
@@ -27,10 +28,12 @@ public class PersonForm extends Form {
 	private Button cancel = new Button("Cancelar");
 	private Button edit = new Button("Editar");
 	private final PersonContainer container;
+	private final ShowNotification showNotificationCmd;
 	
 	@Inject
-	public PersonForm(PersonContainer container,PersonFieldFactory fieldFactory) {
+	public PersonForm(PersonContainer container,PersonFieldFactory fieldFactory,ShowNotification showNotification) {
 		this.container = container;
+		this.showNotificationCmd = showNotification;
 		setFormFieldFactory(fieldFactory);
 		setWriteThrough(false);
 		footer = new HorizontalLayout();
@@ -78,12 +81,16 @@ public class PersonForm extends Form {
 		save.addListener(new ClickListener() {
 			@Override
 			public void buttonClick(ClickEvent event) {
+				String message = "Persona ";
+				String action  = "actualizada";
 				form.commit();
 				if(isNewPerson){
+					action = "creada";
 					Item item = container.addItem(newPerson);
 					setItemDataSource(item);
 				}
 				form.setReadOnly(true);
+				showNotificationCmd.show(message+action);
 			}
 		});
 
