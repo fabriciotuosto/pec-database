@@ -16,11 +16,9 @@ public class SearchView extends Panel{
 	private NativeSelect fieldToSearch;
 	private CheckBox saveSearch;
 	private TextField searchName;
-	private PecApplication app;
 	
 	@Inject
-	public SearchView(final PecApplication app) {
-		this.app = app;
+	public SearchView() {
 		addStyleName("view");
 		setCaption("Buscar personas");
 		FormLayout layout = new FormLayout();

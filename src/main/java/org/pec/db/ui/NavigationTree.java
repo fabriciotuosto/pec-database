@@ -1,9 +1,10 @@
 package org.pec.db.ui;
 
-import java.util.concurrent.Callable;
+import org.pec.db.ui.actions.Command;
+import org.pec.db.ui.actions.ShowAllCommand;
+import org.pec.db.ui.actions.ShowSearchCommand;
 
 import com.google.inject.Inject;
-import com.google.inject.Provider;
 import com.vaadin.event.ItemClickEvent;
 import com.vaadin.event.ItemClickEvent.ItemClickListener;
 import com.vaadin.ui.Tree;
@@ -14,31 +15,12 @@ public class NavigationTree extends Tree {
 	
 	private final TreeItem showAll;
 	private final TreeItem search;
-	private final Provider<PecApplication> appProvider;
-	private final Provider<ListView> listViewProvider;
-	private final Provider<SearchView> searchViewProvider;
 	
 	@Inject
-	public NavigationTree(final Provider<SearchView> searchViewProvider,
-						  final Provider<ListView> listViewProvider,
-						  final Provider<PecApplication> appProvider) {
-		this.appProvider = appProvider;
-		this.searchViewProvider = searchViewProvider;
-		this.listViewProvider = listViewProvider;
-		showAll = new TreeItem("Mostrar todo",new Callable<Object>() {
-			@Override
-			public Object call() throws Exception {
-				appProvider.get().setMainComponent(listViewProvider.get());
-				return null;
-			}
-		});
-		search = new TreeItem("Buscar",new Callable<Object>() {
-			@Override
-			public Object call() throws Exception {
-				appProvider.get().setMainComponent(searchViewProvider.get());
-				return null;
-			}
-		});
+	public NavigationTree(ShowAllCommand showAllCmd,
+						  ShowSearchCommand showSearch) {
+		showAll = new TreeItem("Mostrar todo",showAllCmd);
+		search = new TreeItem("Buscar",showSearch);
 		addItem(showAll);
 		this.setChildrenAllowed(showAll, false);
 		
@@ -55,23 +37,18 @@ public class NavigationTree extends Tree {
 			@Override
 			public void itemClick(ItemClickEvent event) {
 				TreeItem item = (TreeItem) event.getItemId();
-				try {
-					item.callable.call();
-				} catch (Exception e) {
-					throw new Error(e);
-				}
-				
+				item.command.execute();
 			}
 		});
 	}
 	
 	private static class TreeItem{
 		private final String label;
-		private final Callable<Object> callable;
+		private final Command<Object> command;
 
-		public TreeItem(String label,Callable<Object> callable) {
+		public TreeItem(String label,Command<Object> command) {
 			this.label = label;
-			this.callable = callable;
+			this.command = command;
 		}
 		@Override
 		public String toString() {
