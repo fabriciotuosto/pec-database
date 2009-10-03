@@ -19,7 +19,6 @@ public class ToolBar extends HorizontalLayout{
 
 	private static final long serialVersionUID = 1L;
 	private Button newPerson = new Button("Agregar Persona");
-	private Button deletePerson = new Button("Eliminar Persona");
 	private Button search    = new Button("Buscar");
 	private Button share     = new Button("Enviar");
 	private Button help      = new Button("Ayuda");
@@ -36,7 +35,6 @@ public class ToolBar extends HorizontalLayout{
 		this.showSearchCommand = showSearchCmd;
 		
 		addComponent(newPerson);
-		addComponent(deletePerson);
 		addComponent(search);
 		addComponent(share);
 		addComponent(help);
@@ -50,7 +48,6 @@ public class ToolBar extends HorizontalLayout{
 	@SuppressWarnings("serial")
 	private void customizeButtons() {
 		newPerson.setIcon(new ThemeResource("icons/32/document-add.png"));
-		deletePerson.setIcon(new ThemeResource("icons/32/document-delete.png"));
 		search.setIcon(new ThemeResource("icons/32/folder-add.png"));
 		help.setIcon(new ThemeResource("icons/32/help.png"));
 		share.setIcon(new ThemeResource("icons/32/email.png"));
