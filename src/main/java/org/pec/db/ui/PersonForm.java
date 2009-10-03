@@ -29,9 +29,9 @@ public class PersonForm extends Form {
 	private final PersonContainer container;
 	
 	@Inject
-	public PersonForm(PersonContainer container) {
+	public PersonForm(PersonContainer container,PersonFieldFactory fieldFactory) {
 		this.container = container;
-		setFormFieldFactory(new PersonFieldFactory());
+		setFormFieldFactory(fieldFactory);
 		setWriteThrough(false);
 		footer = new HorizontalLayout();
 		footer.setSpacing(true);
