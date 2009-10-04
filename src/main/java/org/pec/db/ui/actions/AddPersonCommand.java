@@ -10,10 +10,10 @@ import com.google.inject.Singleton;
 public class AddPersonCommand implements Command<Object>{
 	
 	private final Provider<PersonForm> personFormProvider;
-	private ShowAllCommand showAll;
+	private ShowListViewCommand showAll;
 	
 	@Inject
-	public AddPersonCommand(Provider<PersonForm> personFormProvider,ShowAllCommand showAll) {
+	public AddPersonCommand(Provider<PersonForm> personFormProvider,ShowListViewCommand showAll) {
 		this.showAll = showAll;
 		this.personFormProvider = personFormProvider;
 	}

@@ -37,7 +37,7 @@ public class PecApplication extends Application{
 		// Enable polling to display updated content
 		ProgressIndicator poller = new ProgressIndicator();
 		poller.addStyleName("invisible");
-		poller.setPollingInterval(100);
+		poller.setPollingInterval(2000);
 		window.addComponent(poller);
 	}
 

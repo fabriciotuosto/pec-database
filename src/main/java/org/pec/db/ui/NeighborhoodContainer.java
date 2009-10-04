@@ -26,14 +26,14 @@ public class NeighborhoodContainer extends BeanItemContainer<Neighborhood> {
 
 	@Override
 	public BeanItem addItem(Object itemId) throws UnsupportedOperationException {
-		repository.save(new Neighborhood(itemId.toString()));
+		repository.save(new Neighborhood(itemId.toString()),this);
 		return super.addItem(itemId);
 	}
 
 	@Override
 	public boolean removeItem(Object itemId)
 			throws UnsupportedOperationException {
-		repository.remove(new Neighborhood(itemId.toString()));
+		repository.remove(new Neighborhood(itemId.toString()),this);
 		return super.removeItem(itemId);
 	}
 	

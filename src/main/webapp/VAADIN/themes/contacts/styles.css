@@ -3,6 +3,7 @@
 .invisible{
 	display: none;
 }
+ 
 /* Add some padding to the tree */
 .v-tree {
       padding-top: 8px;
