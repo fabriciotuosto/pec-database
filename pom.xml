@@ -7,6 +7,16 @@
     <name>PEC Database Application</name>
     <dependencies>
 		<!-- Database for application -->
+		<dependency>
+        	<groupId>org.neodatis</groupId>
+        	<artifactId>neodatis-odb</artifactId>
+        	<version>${neodatis.version}</version>
+        </dependency>
+        <dependency>
+        	<groupId>org.apache.poi</groupId>
+        	<artifactId>poi</artifactId>
+        	<version>${poi.version}</version>
+        </dependency>
 	    <!-- Web Container dependencies -->
 		<dependency>
 		    <groupId>javax.servlet</groupId>
@@ -77,9 +87,9 @@
             <scope>test</scope>
 		</dependency>
         <dependency>
-        	<groupId>org.neodatis</groupId>
-        	<artifactId>neodatis-odb</artifactId>
-        	<version>1.9-beta-1</version>
+        	<groupId>commons-email</groupId>
+        	<artifactId>commons-email</artifactId>
+        	<version>1.1</version>
         </dependency>
     </dependencies>
     <build>
@@ -107,6 +117,7 @@
         <guice.version>2.0.1</guice.version>
 		<aopalliance.version>1.0</aopalliance.version>
 		<vaadin.version>6.0.1</vaadin.version>
-		<db4o.version>7.2.54.11278</db4o.version>
+		<neodatis.version>1.9-beta-1</neodatis.version>
+		<poi.version>3.5-FINAL</poi.version>
     </properties>
 </project>

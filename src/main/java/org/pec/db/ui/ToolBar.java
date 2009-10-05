@@ -1,6 +1,7 @@
 package org.pec.db.ui;
 
 import org.pec.db.ui.actions.AddPersonCommand;
+import org.pec.db.ui.actions.ShowEmailWindowCommand;
 import org.pec.db.ui.actions.ShowHelpWindowCommand;
 import org.pec.db.ui.actions.ShowSearchCommand;
 
@@ -25,15 +26,17 @@ public class ToolBar extends HorizontalLayout{
 	private final Provider<AddPersonCommand> addPersonCmdProvider;
 	private final Provider<ShowHelpWindowCommand> helpWindowProvider;
 	private final Provider<ShowSearchCommand> showSearchCommand;
+	private final Provider<ShowEmailWindowCommand> showEmailCommand;
 	
 	@Inject
 	public ToolBar(Provider<AddPersonCommand> addCmd,
 			       Provider<ShowHelpWindowCommand> showHelpCmd,
-			       Provider<ShowSearchCommand> showSearchCmd) {
+			       Provider<ShowSearchCommand> showSearchCmd,
+			       Provider<ShowEmailWindowCommand> genExcelCmd) {
 		this.addPersonCmdProvider = addCmd;
 		this.helpWindowProvider = showHelpCmd;
 		this.showSearchCommand = showSearchCmd;
-		
+		this.showEmailCommand = genExcelCmd;
 		addComponent(newPerson);
 		addComponent(search);
 		addComponent(share);
@@ -70,6 +73,13 @@ public class ToolBar extends HorizontalLayout{
 			@Override
 			public void buttonClick(ClickEvent event) {
 				helpWindowProvider.get().execute();
+			}
+		});
+		
+		share.addListener(new ClickListener() {		
+			@Override
+			public void buttonClick(ClickEvent event) {
+				showEmailCommand.get().execute();
 			}
 		});
 	}

@@ -1,25 +1,20 @@
 package org.pec.db.ui;
 
-import com.vaadin.ui.Button;
-import com.vaadin.ui.CheckBox;
-import com.vaadin.ui.Label;
+import com.google.inject.Inject;
+import com.google.inject.Singleton;
 import com.vaadin.ui.Window;
 
+@Singleton
 public class SendEmailWindow extends Window {
 	
 	private static final long serialVersionUID = 1L;
 
-	public SendEmailWindow() {
+	@Inject
+	public SendEmailWindow(SendEmailForm form) {
+		setCaption("Enviar email con base de datos");
 		setModal(true);
 		setWidth("50%");
 		center();
-		setCaption("Sharing options");
-		addComponent(new Label(
-		"With these setting you can modify contact sharing "
-		+ "options. (non-functional, example of modal dialog)"));
-		addComponent(new CheckBox("Gmail"));
-		addComponent(new CheckBox(".Mac"));
-		Button close = new Button("OK");
-		addComponent(close);
+		addComponent(form);
 	}
 }
