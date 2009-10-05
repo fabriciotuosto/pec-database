@@ -2,10 +2,7 @@ package org.pec.db.ui.actions;
 
 import java.io.File;
 
-import javax.mail.Multipart;
-
 import org.apache.commons.mail.EmailAttachment;
-import org.apache.commons.mail.HtmlEmail;
 import org.apache.commons.mail.MultiPartEmail;
 import org.pec.db.ui.PecApplication;
 import org.pec.db.ui.SendEmailForm;
