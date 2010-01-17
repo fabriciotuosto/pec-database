@@ -69,7 +69,7 @@ public class SearchView extends Panel{
 													   tf.getValue().toString(),
 													   searchName.getValue().toString());
 				if (saveSearch.booleanValue()){
-					repo.save(filter,SearchView.this);
+					repo.save(filter);
 				}
 				searchCmd.doSearch(filter);
 			}

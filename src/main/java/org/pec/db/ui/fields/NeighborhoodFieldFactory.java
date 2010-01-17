@@ -26,7 +26,7 @@ class NeighborhoodFieldFactory extends DefaultFieldFactory{
 			@Override
 			public Item addItem(Object itemId)
 					throws UnsupportedOperationException {
-				repo.save(new Neighborhood(itemId.toString()),this);
+				repo.save(new Neighborhood(itemId.toString()));
 				return super.addItem(itemId);
 			}		
 		};

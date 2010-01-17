@@ -21,13 +21,13 @@ public class Repository {
 		odb = ODBFactory.open("pecdb2.odb");
 	}
 	
-	public <E> E save(E entity,Object caller){
+	public <E> E save(E entity){
 		E _entity = entity;
 		try{
 			odb.store(_entity);
 			odb.commit();
 			for(RepositoryListener l : listener){
-				l.saveNotification(entity, caller);
+				l.saveNotification(entity);
 			}
 		}catch(Exception e){
 			throw new Error(e);
@@ -35,12 +35,12 @@ public class Repository {
 		return _entity;
 	}
 	
-	public <E> void remove(E entity,Object caller){
+	public <E> void remove(E entity){
 		try{
 			odb.delete(entity);
 			odb.commit();
 			for(RepositoryListener l : listener){
-				l.removeNotification(entity, caller);
+				l.removeNotification(entity);
 			}
 		}catch(Exception e){
 			throw new Error(e);

@@ -3,6 +3,7 @@ package org.pec.db.ui;
 import java.util.Arrays;
 import java.util.List;
 
+import org.pec.db.Repository;
 import org.pec.db.entities.Person;
 import org.pec.db.ui.actions.ShowNotification;
 import org.pec.db.ui.fields.PersonFieldFactory;
@@ -27,12 +28,12 @@ public class PersonForm extends Form {
 	private Button save = new Button("Guardar");
 	private Button cancel = new Button("Cancelar");
 	private Button edit = new Button("Editar");
-	private final PersonContainer container;
 	private final ShowNotification showNotificationCmd;
+	private final Repository repository;
 	
 	@Inject
-	public PersonForm(PersonContainer container,PersonFieldFactory fieldFactory,ShowNotification showNotification) {
-		this.container = container;
+	public PersonForm(Repository repository,PersonFieldFactory fieldFactory,ShowNotification showNotification) {
+		this.repository = repository;
 		this.showNotificationCmd = showNotification;
 		setFormFieldFactory(fieldFactory);
 		setWriteThrough(false);
@@ -86,8 +87,8 @@ public class PersonForm extends Form {
 				form.commit();
 				if(isNewPerson){
 					action = "creada";
-					Item item = container.addItem(newPerson);
-					setItemDataSource(item);
+					repository.save(newPerson);
+					setItemDataSource(new BeanItem(newPerson));
 				}
 				form.setReadOnly(true);
 				showNotificationCmd.show(message+action);

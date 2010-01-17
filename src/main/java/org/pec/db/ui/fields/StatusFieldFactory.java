@@ -28,7 +28,7 @@ class StatusFieldFactory extends DefaultFieldFactory{
 			@Override
 			public Item addItem(Object itemId)
 					throws UnsupportedOperationException {
-				repo.save(new Status(itemId.toString()),this);
+				repo.save(new Status(itemId.toString()));
 				return super.addItem(itemId);
 			}		
 		};
