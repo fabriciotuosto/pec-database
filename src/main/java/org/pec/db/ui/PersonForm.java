@@ -85,11 +85,14 @@ public class PersonForm extends Form {
 				String message = "Persona ";
 				String action  = "actualizada";
 				form.commit();
+				Person p = newPerson;
 				if(isNewPerson){
 					action = "creada";
-					repository.save(newPerson);
 					setItemDataSource(new BeanItem(newPerson));
+				}else{
+					p = (Person) ((BeanItem)getItemDataSource()).getBean();
 				}
+				repository.save(p);
 				form.setReadOnly(true);
 				showNotificationCmd.show(message+action);
 			}

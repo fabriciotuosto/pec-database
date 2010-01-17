@@ -25,6 +25,7 @@ public class PersonContainer extends BeanItemContainer<Person> {
 
 	@Override
 	public BeanItem addItem(Object itemId) throws UnsupportedOperationException {
+		removeItem(itemId);
 		return super.addItem(itemId);
 	}
 	
